@@ -19,30 +19,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LocationService {
 	
-	private final LocationRepo locationRepo;
+	private final LocationRepo itemRepo;
 	
 	public List<Location> getAll() {
-		return locationRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Location save(Location location) {
-		return locationRepo.save(location);
+		return itemRepo.save(location);
 	}
 	
 	public void deleteItemById(Long id) {
-		locationRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Location update(Location location) {
+	public Location update(Long id, Location location) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Location old = locationRepo.findById(location.getId()).orElseThrow(() -> new NotFoundException(location.getId() + " not found"));
+		Location old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(location, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Location getById(Long id) {
-		return locationRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

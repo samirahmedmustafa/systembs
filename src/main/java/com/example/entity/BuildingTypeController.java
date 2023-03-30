@@ -49,8 +49,8 @@ public class BuildingTypeController {
 	}
 	
 	@PutMapping("buildingTypes/{id}")
-	public ResponseEntity<BuildingType> updateById(@RequestBody BuildingType item) {
-		return new ResponseEntity<BuildingType>(buildingTypeService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<BuildingType> updateById(@PathVariable Long id, @RequestBody BuildingType item) {
+		return new ResponseEntity<BuildingType>(buildingTypeService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("buildingTypes")

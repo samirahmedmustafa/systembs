@@ -46,8 +46,8 @@ public class SupportController {
 	}
 	
 	@PutMapping("supports/{id}")
-	public ResponseEntity<Support> updateById(@RequestBody Support item) {
-		return new ResponseEntity<Support>(supportService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Support> updateById(@PathVariable Long id, @RequestBody Support item) {
+		return new ResponseEntity<Support>(supportService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("supports")

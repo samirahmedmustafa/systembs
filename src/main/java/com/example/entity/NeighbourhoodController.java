@@ -52,8 +52,8 @@ public class NeighbourhoodController {
 	}
 	
 	@PutMapping("neighbourhoods/{id}")
-	public ResponseEntity<Neighbourhood> updateById(@RequestBody Neighbourhood item) {
-		return new ResponseEntity<Neighbourhood>(itemService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Neighbourhood> updateById(@PathVariable Long id, @RequestBody Neighbourhood item) {
+		return new ResponseEntity<Neighbourhood>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("neighbourhoods")

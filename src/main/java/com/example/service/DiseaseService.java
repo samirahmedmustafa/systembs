@@ -19,30 +19,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DiseaseService {
 	
-	private final DiseaseRepo diseaseRepo;
+	private final DiseaseRepo itemRepo;
 	
 	public List<Disease> getAll() {
-		return diseaseRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Disease save(Disease item) {
-		return diseaseRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		diseaseRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Disease update(Disease item) {
+	public Disease update(Long id, Disease item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Disease old = diseaseRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Disease old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Disease getById(Long id) {
-		return diseaseRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

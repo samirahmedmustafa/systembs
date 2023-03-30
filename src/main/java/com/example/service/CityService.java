@@ -37,12 +37,13 @@ public class CityService {
 		itemRepo.deleteById(id);
 	}
 	
-	public City update(City item) {
+	public City update(Long id, City item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		City old = itemRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		City old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		
+		return itemRepo.save(old);
 	}
 	
 	public City getById(Long id) {

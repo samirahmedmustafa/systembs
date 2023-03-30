@@ -49,8 +49,8 @@ public class ProfessionController {
 	}
 	
 	@PutMapping("professions/{id}")
-	public ResponseEntity<Profession> updateById(@RequestBody Profession item) {
-		return new ResponseEntity<Profession>(itemService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Profession> updateById(@PathVariable Long id, @RequestBody Profession item) {
+		return new ResponseEntity<Profession>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("professions")

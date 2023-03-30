@@ -53,8 +53,8 @@ public class LocalityController {
 	}
 	
 	@PutMapping("localities/{id}")
-	public ResponseEntity<Locality> updateById(@RequestBody Locality item) {
-		return new ResponseEntity<Locality>(itemService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Locality> updateById(@PathVariable Long id, @RequestBody Locality item) {
+		return new ResponseEntity<Locality>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("localities")

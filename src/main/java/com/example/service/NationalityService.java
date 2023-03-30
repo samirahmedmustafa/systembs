@@ -25,30 +25,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NationalityService {
 	
-	private final NationalityRepo nationalityRepo;
+	private final NationalityRepo itemRepo;
 	
 	public List<Nationality> getAll() {
-		return nationalityRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Nationality save(Nationality item) {
-		return nationalityRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		nationalityRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Nationality update(Nationality item) {
+	public Nationality update(Long id, Nationality item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Nationality old = nationalityRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Nationality old = itemRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Nationality getById(Long id) {
-		return nationalityRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

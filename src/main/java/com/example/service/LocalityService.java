@@ -21,30 +21,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LocalityService {
 	
-	private final LocalityRepo localityRepo;
+	private final LocalityRepo itemRepo;
 	
 	public List<Locality> getAll() {
-		return localityRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Locality save(Locality item) {
-		return localityRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		localityRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Locality update(Locality item) {
+	public Locality update(Long id, Locality item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Locality old = localityRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Locality old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Locality getById(Long id) {
-		return localityRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

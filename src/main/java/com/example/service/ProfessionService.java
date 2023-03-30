@@ -19,30 +19,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProfessionService {
 	
-	private final ProfessionRepo professionRepo;
+	private final ProfessionRepo itemRepo;
 	
 	public List<Profession> getAll() {
-		return professionRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Profession save(Profession item) {
-		return professionRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		professionRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Profession update(Profession item) {
+	public Profession update(Long id, Profession item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Profession old = professionRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Profession old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Profession getById(Long id) {
-		return professionRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

@@ -16,30 +16,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ConditionService {
 	
-	private final ConditionRepo conditionRepo;
+	private final ConditionRepo itemRepo;
 	
 	public List<Condition> getAll() {
-		return conditionRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Condition save(Condition item) {
-		return conditionRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		conditionRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Condition update(Condition item) {
+	public Condition update(Long id, Condition item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Condition old = conditionRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Condition old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Condition getById(Long id) {
-		return conditionRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

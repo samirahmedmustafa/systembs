@@ -23,30 +23,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StateService {
 	
-	private final StateRepo stateRepo;
+	private final StateRepo itemRepo;
 	
 	public List<State> getAll() {
-		return stateRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public State save(State item) {
-		return stateRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		stateRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public State update(State item) {
+	public State update(Long id, State item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		State old = stateRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		State old = itemRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public State getById(Long id) {
-		return stateRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

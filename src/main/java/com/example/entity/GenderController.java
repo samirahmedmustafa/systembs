@@ -47,8 +47,8 @@ public class GenderController {
 	}
 	
 	@PutMapping("genders/{id}")
-	public ResponseEntity<Gender> updateById(@RequestBody Gender item) {
-		return new ResponseEntity<Gender>(genderService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Gender> updateById(@PathVariable Long id, @RequestBody Gender item) {
+		return new ResponseEntity<Gender>(genderService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("genders")

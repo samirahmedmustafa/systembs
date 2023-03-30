@@ -55,8 +55,8 @@ public class StateController {
 	}
 	
 	@PutMapping("states/{id}")
-	public ResponseEntity<State> updateById(@RequestBody State item) {
-		return new ResponseEntity<State>(itemService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<State> updateById(@PathVariable Long id, @RequestBody State item) {
+		return new ResponseEntity<State>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("states")

@@ -27,30 +27,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GasService {
 	
-	private final GasRepo gasRepo;
+	private final GasRepo itemRepo;
 	
 	public List<Gas> getAll() {
-		return gasRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Gas save(Gas item) {
-		return gasRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		gasRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Gas update(Gas item) {
+	public Gas update(Long id, Gas item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Gas old = gasRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Gas old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Gas getById(Long id) {
-		return gasRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

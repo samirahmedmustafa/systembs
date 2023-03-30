@@ -50,8 +50,8 @@ public class DisabilityController {
 	}
 	
 	@PutMapping("disabilities/{id}")
-	public ResponseEntity<Disability> updateById(@RequestBody Disability item) {
-		return new ResponseEntity<Disability>(disabilityService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Disability> updateById(@PathVariable Long id, @RequestBody Disability item) {
+		return new ResponseEntity<Disability>(disabilityService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("disabilities")

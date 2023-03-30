@@ -51,8 +51,8 @@ public class ConditionController {
 	}
 	
 	@PutMapping("conditions/{id}")
-	public ResponseEntity<Condition> updateById(@RequestBody Condition item) {
-		return new ResponseEntity<Condition>(itemService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Condition> updateById(@PathVariable Long id, @RequestBody Condition item) {
+		return new ResponseEntity<Condition>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("conditions")

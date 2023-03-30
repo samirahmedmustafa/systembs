@@ -45,12 +45,12 @@ public class DisabilityService {
 		itemRepo.deleteById(id);
 	}
 	
-	public Disability update(Disability item) {
+	public Disability update(Long id, Disability item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Disability old = itemRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Disability old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Disability getById(Long id) {

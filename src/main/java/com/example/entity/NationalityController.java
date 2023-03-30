@@ -48,8 +48,8 @@ public class NationalityController {
 	}
 	
 	@PutMapping("nationalities/{id}")
-	public ResponseEntity<Nationality> updateById(@RequestBody Nationality item) {
-		return new ResponseEntity<Nationality>(itemService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Nationality> updateById(@PathVariable Long id, @RequestBody Nationality item) {
+		return new ResponseEntity<Nationality>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("nationalities")

@@ -23,30 +23,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GenderService {
 	
-	private final GenderRepo genderRepo;
+	private final GenderRepo itemRepo;
 	
 	public List<Gender> getAll() {
-		return genderRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Gender save(Gender qualification) {
-		return genderRepo.save(qualification);
+		return itemRepo.save(qualification);
 	}
 	
 	public void deleteItemById(Long id) {
-		genderRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Gender update(Gender gender) {
+	public Gender update(Long id, Gender gender) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Gender old = genderRepo.findById(gender.getId()).orElseThrow(() -> new NotFoundException(gender.getId() + " not found"));
+		Gender old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(gender, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Gender getById(Long id) {
-		return genderRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

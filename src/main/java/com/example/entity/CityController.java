@@ -54,8 +54,8 @@ public class CityController {
 	}
 	
 	@PutMapping("cities/{id}")
-	public ResponseEntity<City> updateById(@RequestBody City item) {
-		return new ResponseEntity<City>(itemService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<City> updateById(@PathVariable Long id, @RequestBody City item) {
+		return new ResponseEntity<City>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("cities")

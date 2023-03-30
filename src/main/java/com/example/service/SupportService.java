@@ -19,30 +19,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SupportService {
 	
-	private final SupportRepo supportRepo;
+	private final SupportRepo itemRepo;
 	
 	public List<Support> getAll() {
-		return supportRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Support save(Support support) {
-		return supportRepo.save(support);
+		return itemRepo.save(support);
 	}
 	
 	public void deleteItemById(Long id) {
-		supportRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Support update(Support support) {
+	public Support update(Long id, Support item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Support old = supportRepo.findById(support.getId()).orElseThrow(() -> new NotFoundException(support.getId() + " not found"));
-		mapper.map(support, old);
-		return old;
+		Support old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		mapper.map(item, old);
+		return itemRepo.save(old);
 	}
 	
 	public Support getById(Long id) {
-		return supportRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

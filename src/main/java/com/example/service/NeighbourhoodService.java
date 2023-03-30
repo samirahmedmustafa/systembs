@@ -19,30 +19,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NeighbourhoodService {
 	
-	private final NeighbourhoodRepo neighbourhoodRepo;
+	private final NeighbourhoodRepo itemRepo;
 	
 	public List<Neighbourhood> getAll() {
-		return neighbourhoodRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Neighbourhood save(Neighbourhood item) {
-		return neighbourhoodRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		neighbourhoodRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Neighbourhood update(Neighbourhood item) {
+	public Neighbourhood update(Long id, Neighbourhood item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Neighbourhood old = neighbourhoodRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Neighbourhood old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Neighbourhood getById(Long id) {
-		return neighbourhoodRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

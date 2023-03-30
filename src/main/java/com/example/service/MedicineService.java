@@ -29,30 +29,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MedicineService {
 	
-	private final MedicineRepo medicineRepo;
+	private final MedicineRepo itemRepo;
 	
 	public List<Medicine> getAll() {
-		return medicineRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public Medicine save(Medicine item) {
-		return medicineRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		medicineRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
-	public Medicine update(Medicine item) {
+	public Medicine update(Long id, Medicine item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Medicine old = medicineRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		Medicine old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public Medicine getById(Long id) {
-		return medicineRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	

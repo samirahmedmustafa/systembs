@@ -45,8 +45,8 @@ public class DiseaseController {
 	}
 	
 	@PutMapping("diseases/{id}")
-	public ResponseEntity<Disease> updateById(@RequestBody Disease item) {
-		return new ResponseEntity<Disease>(diseaseService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Disease> updateById(@PathVariable Long id, @RequestBody Disease item) {
+		return new ResponseEntity<Disease>(diseaseService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("diseases")

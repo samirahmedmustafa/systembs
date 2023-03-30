@@ -37,10 +37,10 @@ public class BuildingTypeService {
 		buildingTypeRepo.deleteById(id);
 	}
 	
-	public BuildingType update(BuildingType item) {
+	public BuildingType update(Long id, BuildingType item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		BuildingType old = buildingTypeRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		BuildingType old = buildingTypeRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 		mapper.map(item, old);
 		return old;
 	}

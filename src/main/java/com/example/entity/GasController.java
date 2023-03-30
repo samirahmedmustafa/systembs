@@ -50,8 +50,8 @@ public class GasController {
 	}
 	
 	@PutMapping("gases/{id}")
-	public ResponseEntity<Gas> updateById(@RequestBody Gas item) {
-		return new ResponseEntity<Gas>(itemService.update(item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Gas> updateById(@PathVariable Long id, @RequestBody Gas item) {
+		return new ResponseEntity<Gas>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("gases")
