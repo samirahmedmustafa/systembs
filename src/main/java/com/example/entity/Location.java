@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,18 @@ public class Location {
 	private String delegateId;
 	private String delegateName;
 	private String delegatePhoneNo;
+	@ManyToOne
+	private BuildingType buildingType;
+	@ManyToOne
+	private Condition condition;
+	@ManyToOne
+	private City city;
+	@ManyToOne
+	private Neighbourhood neighbourhood;
+	@ManyToOne
+	private Locality locality;
+	@ManyToOne
+	private State state;
 	@OneToMany(mappedBy = "location")
 	private List<Citizens> citizens;
 }

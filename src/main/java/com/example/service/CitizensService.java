@@ -23,19 +23,19 @@ public class CitizensService {
 		return citizensRepo.findAll();
 	}
 	
-	public Citizens save(Citizens citizens) {
-		return citizensRepo.save(citizens);
+	public Citizens save(Citizens item) {
+		return citizensRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
 		citizensRepo.deleteById(id);
 	}
 	
-	public Citizens update(Citizens citizens) {
+	public Citizens update(Citizens item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		Citizens old = citizensRepo.findById(citizens.getId()).orElseThrow(() -> new NotFoundException(citizens.getId() + " not found"));
-		mapper.map(citizens, old);
+		Citizens old = citizensRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		mapper.map(item, old);
 		return old;
 	}
 	
