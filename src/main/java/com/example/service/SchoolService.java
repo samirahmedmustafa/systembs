@@ -35,7 +35,7 @@ public class SchoolService {
 		schoolRepo.deleteById(id);
 	}
 	
-	public School update(School item) {
+	public School update(Long id, School item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
 		School old = schoolRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
