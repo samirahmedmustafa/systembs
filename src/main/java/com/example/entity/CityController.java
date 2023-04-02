@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class CityController {
 	private final CityService itemService;
 	
 	@GetMapping("cities/{id}")
-	public ResponseEntity<City> getById(@PathVariable Long id) {
+	public ResponseEntity<City> getById(@PathVariable Long id) throws Exception {
 		return new ResponseEntity<City>(itemService.getById(id), HttpStatusCode.valueOf(200));
 	}
 	
