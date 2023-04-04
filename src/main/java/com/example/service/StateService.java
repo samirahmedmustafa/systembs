@@ -1,14 +1,18 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Citizens;
 import com.example.entity.Disease;
 import com.example.entity.School;
 import com.example.entity.State;
+import com.example.exception.AlreadyExistingException;
 import com.example.exception.NotFoundException;
 import com.example.repository.CitizensRepo;
 import com.example.repository.DiseaseRepo;
@@ -23,13 +27,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StateService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(CityService.class);
+
+
 	private final StateRepo itemRepo;
 	
 	public List<State> getAll() {
 		return itemRepo.findAll();
 	}
 	
-	public State save(State item) {
+	public State save(State item) throws Exception {
+		if(item.getName() == null || item.getName().equals("")) { throw new IllegalArgumentException(String.format("Enter a valid name", null)); }
+		getByName(item.getName());
 		return itemRepo.save(item);
 	}
 	
@@ -37,16 +46,23 @@ public class StateService {
 		itemRepo.deleteById(id);
 	}
 	
-	public State update(Long id, State item) {
+	public State update(Long id, State item) throws Exception {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		State old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		State old = itemRepo.findById(id).orElseThrow(() -> new NoSuchElementException(id + " not found"));
 		mapper.map(item, old);
 		return itemRepo.save(old);
 	}
 	
-	public State getById(Long id) {
-		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+	public State getById(Long id) throws Exception {
+		return itemRepo.findById(id).orElseThrow(() -> new NoSuchElementException(id + " not found"));
+	}
+	
+	public State getByName(String name) throws Exception {
+		State state = itemRepo.findByName(name);
+		logger.error("%s", name);
+		if(state == null) { throw new AlreadyExistingException(String.format("State %s not ", name)); }
+		return state;
 	}
 
 	

@@ -6,4 +6,5 @@ import com.example.entity.State;
 
 public interface StateRepo extends JpaRepository<State, Long> {
 
+	State findByName(String name);
 }

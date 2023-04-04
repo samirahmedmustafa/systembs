@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.exception.NotFoundException;
 import com.example.service.CitizensService;
 import com.example.service.CityService;
 import com.example.service.ConditionService;
@@ -39,8 +41,13 @@ public class StateController {
 	private final StateService itemService;
 	
 	@GetMapping("states/{id}")
-	public ResponseEntity<State> getById(@PathVariable Long id) {
+	public ResponseEntity<State> getById(@PathVariable Long id) throws Exception {
 		return new ResponseEntity<State>(itemService.getById(id), HttpStatusCode.valueOf(200));
+	}
+	
+	@GetMapping("states/byName")
+	public ResponseEntity<State> getByName(@RequestParam String name) throws Exception {
+		return new ResponseEntity<State>(itemService.getByName(name), HttpStatusCode.valueOf(200));
 	}
 	
 	@GetMapping("states")
@@ -55,12 +62,12 @@ public class StateController {
 	}
 	
 	@PutMapping("states/{id}")
-	public ResponseEntity<State> updateById(@PathVariable Long id, @RequestBody State item) {
+	public ResponseEntity<State> updateById(@PathVariable Long id, @RequestBody State item) throws Exception {
 		return new ResponseEntity<State>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("states")
-	public ResponseEntity<State> save(@RequestBody State item) {
+	public ResponseEntity<State> save(@RequestBody State item) throws Exception {
 		return new ResponseEntity<State>(itemService.save(item), HttpStatusCode.valueOf(201));
 	}
 

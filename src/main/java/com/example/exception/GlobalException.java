@@ -26,4 +26,24 @@ public class GlobalException {
 		errorMessage.put("message", ex.getLocalizedMessage());
 		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 	}
+    
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(AlreadyExistingException.class)
+	public ResponseEntity<Object> alreadyExistingException(AlreadyExistingException ex) {
+		Map<String, String> errorMessage = new HashMap<>();
+		errorMessage.put("status", "405");
+		errorMessage.put("timestamp", new Date().toString());
+		errorMessage.put("message", ex.getLocalizedMessage());
+		return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+	}
+    
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<Object> illegalArgumentException(IllegalArgumentException ex) {
+		Map<String, String> errorMessage = new HashMap<>();
+		errorMessage.put("status", "406");
+		errorMessage.put("timestamp", new Date().toString());
+		errorMessage.put("message", ex.getLocalizedMessage());
+		return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+	}
 }
