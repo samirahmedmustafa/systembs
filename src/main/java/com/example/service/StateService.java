@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StateService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CityService.class);
+	private static final Logger logger = LoggerFactory.getLogger(State.class);
 
 
 	private final StateRepo itemRepo;
@@ -37,8 +37,12 @@ public class StateService {
 	}
 	
 	public State save(State item) throws Exception {
+		
 		if(item.getName() == null || item.getName().equals("")) { throw new IllegalArgumentException(String.format("Enter a valid name", null)); }
-		getByName(item.getName());
+		
+		if(validateNameExists(item.getName()))
+			throw new IllegalArgumentException(String.format("Name %s already exists", item.getName()));
+		
 		return itemRepo.save(item);
 	}
 	
@@ -59,10 +63,39 @@ public class StateService {
 	}
 	
 	public State getByName(String name) throws Exception {
+		
 		State state = itemRepo.findByName(name);
-		logger.error("%s", name);
-		if(state == null) { throw new AlreadyExistingException(String.format("State %s not ", name)); }
+		
+		if(state == null) {
+			throw new NoSuchElementException(String.format("Name %s not found", name)); 
+		}
+			
 		return state;
+	}
+	
+	public Boolean validateNameExists(String name) {
+		
+		State state = itemRepo.findByName(name);
+		
+		System.out.println("name " + state + " exists");
+		
+		logger.error("name %s exists", state);
+		
+		if(state == null) 
+			return false;
+
+		return true;
+	}
+	
+	public Boolean validateNameNotExists(String name) {
+		
+		State state = itemRepo.findByName(name);
+		logger.error("%s", state);
+		
+		if(state == null) 
+			return true;
+
+		return false;
 	}
 
 	
