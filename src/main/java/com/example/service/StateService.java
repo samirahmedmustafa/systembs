@@ -90,7 +90,10 @@ public class StateService {
 	public Boolean validateNameNotExists(String name) {
 		
 		State state = itemRepo.findByName(name);
-		logger.error("%s", state);
+		
+		System.out.println("name " + state + " not exists");
+		
+		logger.error("name not %s exists", state);
 		
 		if(state == null) 
 			return true;
