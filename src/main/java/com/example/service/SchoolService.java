@@ -21,30 +21,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SchoolService {
 	
-	private final SchoolRepo schoolRepo;
+	private final SchoolRepo itemRepo;
 	
 	public List<School> getAll() {
-		return schoolRepo.findAll();
+		return itemRepo.findAll();
 	}
 	
 	public School save(School item) {
-		return schoolRepo.save(item);
+		return itemRepo.save(item);
 	}
 	
 	public void deleteItemById(Long id) {
-		schoolRepo.deleteById(id);
+		itemRepo.deleteById(id);
 	}
 	
 	public School update(Long id, School item) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
-		School old = schoolRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		School old = itemRepo.findById(item.getId()).orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
 		mapper.map(item, old);
-		return old;
+		return itemRepo.save(old);
 	}
 	
 	public School getById(Long id) {
-		return schoolRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
 	}
 
 	
