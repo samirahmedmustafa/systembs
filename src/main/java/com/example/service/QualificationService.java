@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Citizens;
+import com.example.entity.Profession;
 import com.example.entity.Qualification;
 import com.example.entity.Support;
 import com.example.exception.NotFoundException;
@@ -20,32 +21,33 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class QualificationService {
-	
-	private final QualificationRepo qualificationRepo;
-	
+
+	private final QualificationRepo itemRepo;
+
 	public List<Qualification> getAll() {
-		return qualificationRepo.findAll();
-	}
-	
-	public Qualification save(Qualification qualification) {
-		return qualificationRepo.save(qualification);
-	}
-	
-	public void deleteItemById(Long id) {
-		qualificationRepo.deleteById(id);
-	}
-	
-	public Qualification update(Qualification qualification) {
-		ModelMapper mapper = new ModelMapper();
-		mapper.getConfiguration().setSkipNullEnabled(true);
-		Qualification old = qualificationRepo.findById(qualification.getId()).orElseThrow(() -> new NotFoundException(qualification.getId() + " not found"));
-		mapper.map(qualification, old);
-		return old;
-	}
-	
-	public Qualification getById(Long id) {
-		return qualificationRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		return itemRepo.findAll();
 	}
 
-	
+	public Qualification save(Qualification qualification) {
+		return itemRepo.save(qualification);
+	}
+
+	public void deleteItemById(Long id) {
+		itemRepo.deleteById(id);
+	}
+
+	public Qualification update(Long id, Qualification item) {
+
+		ModelMapper mapper = new ModelMapper();
+		mapper.getConfiguration().setSkipNullEnabled(true);
+		Qualification old = itemRepo.findById(item.getId())
+				.orElseThrow(() -> new NotFoundException(item.getId() + " not found"));
+		mapper.map(item, old);
+		return itemRepo.save(old);
+	}
+
+	public Qualification getById(Long id) {
+		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+	}
+
 }

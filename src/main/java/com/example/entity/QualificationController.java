@@ -19,6 +19,7 @@ import com.example.service.GenderService;
 import com.example.service.LocationService;
 import com.example.service.NationalityService;
 import com.example.service.ProfessionService;
+import com.example.service.QualificationService;
 import com.example.service.SupportService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,16 +31,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class QualificationController {
 	
-	private final  ProfessionService itemService;
+	private final  QualificationService itemService;
 	
 	@GetMapping("qualifications/{id}")
-	public ResponseEntity<Profession> getById(@PathVariable Long id) {
-		return new ResponseEntity<Profession>(itemService.getById(id), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Qualification> getById(@PathVariable Long id) {
+		return new ResponseEntity<Qualification>(itemService.getById(id), HttpStatusCode.valueOf(200));
 	}
 	
 	@GetMapping("qualifications")
-	public ResponseEntity<List<Profession>> getAll() {
-		return new ResponseEntity<List<Profession>>(itemService.getAll(), HttpStatusCode.valueOf(200));
+	public ResponseEntity<List<Qualification>> getAll() {
+		return new ResponseEntity<List<Qualification>>(itemService.getAll(), HttpStatusCode.valueOf(200));
 	}
 	
 	@DeleteMapping("qualifications/{id}")
@@ -49,13 +50,13 @@ public class QualificationController {
 	}
 	
 	@PutMapping("qualifications/{id}")
-	public ResponseEntity<Profession> updateById(@PathVariable Long id, @RequestBody Profession item) {
-		return new ResponseEntity<Profession>(itemService.update(id, item), HttpStatusCode.valueOf(200));
+	public ResponseEntity<Qualification> updateById(@PathVariable Long id, @RequestBody Qualification item) {
+		return new ResponseEntity<Qualification>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
 	@PostMapping("qualifications")
-	public ResponseEntity<Profession> save(@RequestBody Profession item) {
-		return new ResponseEntity<Profession>(itemService.save(item), HttpStatusCode.valueOf(201));
+	public ResponseEntity<Qualification> save(@RequestBody Qualification item) {
+		return new ResponseEntity<Qualification>(itemService.save(item), HttpStatusCode.valueOf(201));
 	}
 
 }
