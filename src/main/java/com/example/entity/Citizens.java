@@ -37,6 +37,8 @@ public class Citizens {
 	@ManyToOne
 	private Location location;
 	@ManyToOne
+	private School school;
+	@ManyToOne
 	private Nationality nationality;
 	@ManyToOne
 	private Qualification qualification;

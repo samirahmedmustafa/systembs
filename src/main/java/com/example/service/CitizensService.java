@@ -19,8 +19,8 @@ public class CitizensService {
 	
 	private final CitizensRepo itemRepo;
 	
-	public List<Citizens> getAll() {
-		return itemRepo.findAll();
+	public List<Object[]> getAll() {
+		return itemRepo.findCitizensByGasCount();
 	}
 	
 	public Citizens save(Citizens item) {

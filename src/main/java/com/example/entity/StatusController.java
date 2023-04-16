@@ -19,7 +19,7 @@ import com.example.service.GenderService;
 import com.example.service.LocationService;
 import com.example.service.NationalityService;
 import com.example.service.ProfessionService;
-import com.example.service.QualificationService;
+import com.example.service.StatusService;
 import com.example.service.SupportService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,34 +29,34 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
-public class QualificationController {
+public class StatusController {
 	
-	private final  QualificationService itemService;
+	private final  StatusService itemService;
 	
-	@GetMapping("qualifications/{id}")
-	public ResponseEntity<Qualification> getById(@PathVariable Long id) {
-		return new ResponseEntity<Qualification>(itemService.getById(id), HttpStatusCode.valueOf(200));
+	@GetMapping("statuses/{id}")
+	public ResponseEntity<Status> getById(@PathVariable Long id) throws Exception {
+		return new ResponseEntity<Status>(itemService.getById(id), HttpStatusCode.valueOf(200));
 	}
 	
-	@GetMapping("qualifications")
-	public ResponseEntity<List<Qualification>> getAll() {
-		return new ResponseEntity<List<Qualification>>(itemService.getAll(), HttpStatusCode.valueOf(200));
+	@GetMapping("statuses")
+	public ResponseEntity<List<Status>> getAll() {
+		return new ResponseEntity<List<Status>>(itemService.getAll(), HttpStatusCode.valueOf(200));
 	}
 	
-	@DeleteMapping("qualifications/{id}")
+	@DeleteMapping("statuses/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable Long id) {
 		itemService.deleteItemById(id);
 		return new ResponseEntity<>(HttpStatusCode.valueOf(200));
 	}
 	
-	@PutMapping("qualifications/{id}")
-	public ResponseEntity<Qualification> updateById(@PathVariable Long id, @RequestBody Qualification item) {
-		return new ResponseEntity<Qualification>(itemService.update(id, item), HttpStatusCode.valueOf(200));
+	@PutMapping("statuses/{id}")
+	public ResponseEntity<Status> updateById(@PathVariable Long id, @RequestBody Status item) throws Exception {
+		return new ResponseEntity<Status>(itemService.update(id, item), HttpStatusCode.valueOf(200));
 	}
 	
-	@PostMapping("qualifications")
-	public ResponseEntity<Qualification> save(@RequestBody Qualification item) {
-		return new ResponseEntity<Qualification>(itemService.save(item), HttpStatusCode.valueOf(201));
+	@PostMapping("statuses")
+	public ResponseEntity<Status> save(@RequestBody Status item) throws Exception {
+		return new ResponseEntity<Status>(itemService.save(item), HttpStatusCode.valueOf(201));
 	}
 
 }

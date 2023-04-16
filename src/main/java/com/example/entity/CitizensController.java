@@ -33,8 +33,8 @@ public class CitizensController {
 	}
 	
 	@GetMapping("citizens")
-	public ResponseEntity<List<Citizens>> getAll() {
-		return new ResponseEntity<List<Citizens>>(citizensService.getAll(), HttpStatusCode.valueOf(200));
+	public ResponseEntity<List<Object[]>> getAll() {
+		return new ResponseEntity<List<Object[]>>(citizensService.getAll(), HttpStatusCode.valueOf(200));
 	}
 	
 	@DeleteMapping("citizens/{id}")

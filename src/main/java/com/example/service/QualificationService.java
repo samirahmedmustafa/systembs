@@ -35,7 +35,7 @@ public class QualificationService {
 		qualificationRepo.deleteById(id);
 	}
 	
-	public Qualification update(Qualification qualification) {
+	public Qualification update(Long id, Qualification qualification) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setSkipNullEnabled(true);
 		Qualification old = qualificationRepo.findById(qualification.getId()).orElseThrow(() -> new NotFoundException(qualification.getId() + " not found"));
