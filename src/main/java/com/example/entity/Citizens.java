@@ -2,7 +2,6 @@ package com.example.entity;
 
 import java.util.Date;
 import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,6 +43,8 @@ public class Citizens {
 	private Qualification qualification;
 	@ManyToOne
 	private Gender gender;
+	@ManyToOne
+	private Status status;
 	@ManyToMany
 	@JoinTable(
 			  name = "citizens_supports", 

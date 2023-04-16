@@ -29,8 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StatusService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(State.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(Status.class);
 
 	private final StatusRepo itemRepo;
 	
@@ -66,24 +65,24 @@ public class StatusService {
 	
 	public Status getByName(String name) throws Exception {
 		
-		Status status = itemRepo.findByName(name);
+		Status item = itemRepo.findByName(name);
 		
-		if(status == null) {
+		if(item == null) {
 			throw new NoSuchElementException(String.format("Name %s not found", name)); 
 		}
 			
-		return status;
+		return item;
 	}
 	
 	public Boolean validateNameExists(String name) {
 		
-		Status state = itemRepo.findByName(name);
+		Status status = itemRepo.findByName(name);
 		
-		System.out.println("name " + state + " exists");
+		System.out.println("name " + status + " exists");
 		
-		logger.error("name %s exists", state);
+		logger.error("name %s exists", status);
 		
-		if(state == null) 
+		if(status == null) 
 			return false;
 
 		return true;
@@ -91,13 +90,13 @@ public class StatusService {
 	
 	public Boolean validateNameNotExists(String name) {
 		
-		Status status = itemRepo.findByName(name);
+		Status item = itemRepo.findByName(name);
 		
-		System.out.println("name " + status + " not exists");
+		System.out.println("name " + item + " not exists");
 		
-		logger.error("name not %s exists", status);
+		logger.error("name not %s exists", item);
 		
-		if(status == null) 
+		if(item == null) 
 			return true;
 
 		return false;

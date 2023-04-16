@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.service.CitizensService;
 import com.example.service.DiseaseService;
 import com.example.service.GenderService;
@@ -21,7 +21,6 @@ import com.example.service.NationalityService;
 import com.example.service.ProfessionService;
 import com.example.service.StatusService;
 import com.example.service.SupportService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,11 +30,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StatusController {
 	
-	private final  StatusService itemService;
+	private final StatusService itemService;
 	
 	@GetMapping("statuses/{id}")
 	public ResponseEntity<Status> getById(@PathVariable Long id) throws Exception {
 		return new ResponseEntity<Status>(itemService.getById(id), HttpStatusCode.valueOf(200));
+	}
+	
+	@GetMapping("statuses/byName")
+	public ResponseEntity<Status> getByName(@RequestParam String name) throws Exception {
+		return new ResponseEntity<Status>(itemService.getByName(name), HttpStatusCode.valueOf(200));
 	}
 	
 	@GetMapping("statuses")
