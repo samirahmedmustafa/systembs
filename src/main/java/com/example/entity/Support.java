@@ -21,6 +21,6 @@ public class Support {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
-	@ManyToMany
-	private Set<Citizens> citizens;
+//	@ManyToMany
+//	private Set<Citizens> citizens;
 }

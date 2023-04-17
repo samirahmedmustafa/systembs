@@ -2,6 +2,8 @@ package com.example.entity;
 
 import java.util.Date;
 import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,42 +47,23 @@ public class Citizens {
 	private Gender gender;
 	@ManyToOne
 	private Status status;
-	@ManyToMany
-	@JoinTable(
-			  name = "citizens_supports", 
-			  joinColumns = @JoinColumn(name = "citizen_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "supports_id"))
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinTable(name = "citizens_supports", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "supports_id"))
 	private Set<Support> supports;
-	@ManyToMany
-	@JoinTable(
-			  name = "citizens_medicines", 
-			  joinColumns = @JoinColumn(name = "citizen_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "medicines_id"))
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinTable(name = "citizens_medicines", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "medicines_id"))
 	private Set<Medicine> medicines;
-	@ManyToMany
-	@JoinTable(
-			  name = "citizens_diseases", 
-			  joinColumns = @JoinColumn(name = "citizen_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "disease_id"))
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinTable(name = "citizens_diseases", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "disease_id"))
 	private Set<Disease> diseases;
-	@ManyToMany
-	@JoinTable(
-			  name = "citizens_disabilities", 
-			  joinColumns = @JoinColumn(name = "citizen_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "disability_id"))
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinTable(name = "citizens_disabilities", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "disability_id"))
 	private Set<Disability> disabilities;
-	@ManyToMany
-	@JoinTable(
-			  name = "citizens_professions", 
-			  joinColumns = @JoinColumn(name = "citizen_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "profession_id"))
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinTable(name = "citizens_professions", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "profession_id"))
 	private Set<Profession> professions;
-	@ManyToMany
-	@JoinTable(
-			  name = "citizens_gases", 
-			  joinColumns = @JoinColumn(name = "citizen_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "gas_id"))
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinTable(name = "citizens_gases", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "gas_id"))
 	private Set<Gas> gases;
-	
-	
+
 }
