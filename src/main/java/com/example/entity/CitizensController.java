@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.service.CitizensService;
@@ -32,9 +33,24 @@ public class CitizensController {
 		return new ResponseEntity<Citizens>(citizensService.getById(id), HttpStatusCode.valueOf(200));
 	}
 	
+	@GetMapping("citizens/custom")
+	public ResponseEntity<List<Object[]>> getAllCustom() {
+		return new ResponseEntity<List<Object[]>>(citizensService.getAllCustom(), HttpStatusCode.valueOf(200));
+	}
+	
 	@GetMapping("citizens")
-	public ResponseEntity<List<Object[]>> getAll() {
-		return new ResponseEntity<List<Object[]>>(citizensService.getAll(), HttpStatusCode.valueOf(200));
+	public ResponseEntity<List<Citizens>> getAll() {
+		return new ResponseEntity<List<Citizens>>(citizensService.getAll(), HttpStatusCode.valueOf(200));
+	}
+	
+	@GetMapping("citizens/byGender")
+	public ResponseEntity<List<Citizens>> findByGender(@RequestParam String gender) {
+		return new ResponseEntity<List<Citizens>>(citizensService.findByGender(gender), HttpStatusCode.valueOf(200));
+	}
+	
+	@GetMapping("citizens/byFemale")
+	public ResponseEntity<List<Citizens>> findByFemale() {
+		return new ResponseEntity<List<Citizens>>(citizensService.findByFemale(), HttpStatusCode.valueOf(200));
 	}
 	
 	@DeleteMapping("citizens/{id}")

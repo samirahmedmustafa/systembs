@@ -19,8 +19,20 @@ public class CitizensService {
 	
 	private final CitizensRepo itemRepo;
 	
-	public List<Object[]> getAll() {
-		return itemRepo.findCitizensByGasCount();
+	public List<Citizens> getAll() {
+		return itemRepo.findAll();
+	}
+	
+	public List<Object[]> getAllCustom() {
+		return itemRepo.findCustomCitizens();
+	}
+	
+	public List<Citizens> findByFemale() {
+		return itemRepo.findByFemale();
+	}
+	
+	public List<Citizens> findByGender(String gender) {
+		return itemRepo.findByGender(gender);
 	}
 	
 	public Citizens save(Citizens item) {

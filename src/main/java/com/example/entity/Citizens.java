@@ -3,6 +3,8 @@ package com.example.entity;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,22 +50,31 @@ public class Citizens {
 	@ManyToOne
 	private Status status;
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+//    @JsonIgnoreProperties("citizens")
 	@JoinTable(name = "citizens_supports", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "supports_id"))
 	private Set<Support> supports;
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "citizens_medicines", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "medicines_id"))
+//    @JsonIgnoreProperties("citizens")
 	private Set<Medicine> medicines;
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "citizens_diseases", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "disease_id"))
+//    @JsonIgnoreProperties("citizens")
 	private Set<Disease> diseases;
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "citizens_disabilities", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "disability_id"))
+//    @JsonIgnoreProperties("citizens")
 	private Set<Disability> disabilities;
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "citizens_professions", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "profession_id"))
+//    @JsonIgnoreProperties("citizens")
 	private Set<Profession> professions;
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "citizens_gases", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "gas_id"))
+//    @JsonIgnoreProperties("citizens")
 	private Set<Gas> gases;
+	@ManyToMany
+	@JoinTable(name = "citizens_wives", joinColumns = @JoinColumn(name = "husband_id"), inverseJoinColumns = @JoinColumn(name = "wife_id"))
+	private Set<Citizens> wives;
 
 }
