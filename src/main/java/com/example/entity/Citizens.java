@@ -1,12 +1,16 @@
 package com.example.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,8 +53,15 @@ public class Citizens {
 	private Gender gender;
 	@ManyToOne
 	private Status status;
+	
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
-//    @JsonIgnoreProperties("citizens")
+	@JoinTable(name = "citizens_wives", joinColumns = @JoinColumn(name = "husband_id"), inverseJoinColumns = @JoinColumn(name = "wife_id"))
+	private Set<Citizens> wives;
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "wives", fetch = FetchType.LAZY)
+	private Set<Citizens> husbands;
+	
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "citizens_supports", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "supports_id"))
 	private Set<Support> supports;
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
@@ -73,8 +84,14 @@ public class Citizens {
 	@JoinTable(name = "citizens_gases", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "gas_id"))
 //    @JsonIgnoreProperties("citizens")
 	private Set<Gas> gases;
-	@ManyToMany
-	@JoinTable(name = "citizens_wives", joinColumns = @JoinColumn(name = "husband_id"), inverseJoinColumns = @JoinColumn(name = "wife_id"))
-	private Set<Citizens> wives;
+	
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "following")
+    private Set<Citizens> followers = new HashSet<>();
+    @JoinTable(name = "followers",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "follower_id")})
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Citizens> following = new HashSet<>();
+
 
 }

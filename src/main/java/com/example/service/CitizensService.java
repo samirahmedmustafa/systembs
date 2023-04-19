@@ -3,20 +3,25 @@ package com.example.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Citizens;
 import com.example.exception.NotFoundException;
 import com.example.repository.CitizensRepo;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class CitizensService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(CitizensService.class);
 	private final CitizensRepo itemRepo;
 	
 	public List<Citizens> getAll() {
@@ -52,7 +57,9 @@ public class CitizensService {
 	}
 	
 	public Citizens getById(Long id) {
-		return itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		Citizens citizen = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
+		logger.warn("citizen: {}", citizen.getWives());
+		return citizen;
 	}
 
 	

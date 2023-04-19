@@ -2,6 +2,8 @@ package com.example.entity;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,11 +28,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CitizensController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(CitizensController.class);
 	private final CitizensService citizensService;
 	
 	@GetMapping("citizens/{id}")
 	public ResponseEntity<Citizens> getById(@PathVariable Long id) {
-		return new ResponseEntity<Citizens>(citizensService.getById(id), HttpStatusCode.valueOf(200));
+		
+		Citizens citizen = citizensService.getById(id);
+		logger.warn("citizen.getWives():{}", citizen.getWives());
+		logger.warn("citizen.getName():{}", citizen.getName());
+		logger.warn("citizen.getHusbands():{}", citizen.getHusbands());
+		logger.warn("citizen.getMedicines():{}", citizen.getMedicines());
+		logger.warn("citizen.getSupports():{}", citizen.getSupports());
+		logger.warn("citizen.getFollowers():{}", citizen.getFollowers());
+		logger.warn("citizen.getFollowing():{}", citizen.getFollowing());
+		return new ResponseEntity<Citizens>(citizen, HttpStatusCode.valueOf(200));
 	}
 	
 	@GetMapping("citizens/custom")
