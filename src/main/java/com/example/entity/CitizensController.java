@@ -37,11 +37,8 @@ public class CitizensController {
 		Citizens citizen = citizensService.getById(id);
 		logger.warn("citizen.getWives():{}", citizen.getWives());
 		logger.warn("citizen.getName():{}", citizen.getName());
-		logger.warn("citizen.getHusbands():{}", citizen.getHusbands());
 		logger.warn("citizen.getMedicines():{}", citizen.getMedicines());
 		logger.warn("citizen.getSupports():{}", citizen.getSupports());
-		logger.warn("citizen.getFollowers():{}", citizen.getFollowers());
-		logger.warn("citizen.getFollowing():{}", citizen.getFollowing());
 		return new ResponseEntity<Citizens>(citizen, HttpStatusCode.valueOf(200));
 	}
 	

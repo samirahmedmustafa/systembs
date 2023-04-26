@@ -57,10 +57,7 @@ public class Citizens {
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "citizens_wives", joinColumns = @JoinColumn(name = "husband_id"), inverseJoinColumns = @JoinColumn(name = "wife_id"))
 	private Set<Citizens> wives;
-	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "wives", fetch = FetchType.LAZY)
-	private Set<Citizens> husbands;
-	
+		
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "citizens_supports", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "supports_id"))
 	private Set<Support> supports;
@@ -84,14 +81,5 @@ public class Citizens {
 	@JoinTable(name = "citizens_gases", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "gas_id"))
 //    @JsonIgnoreProperties("citizens")
 	private Set<Gas> gases;
-	
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "following")
-    private Set<Citizens> followers = new HashSet<>();
-    @JoinTable(name = "followers",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "follower_id")})
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Citizens> following = new HashSet<>();
-
 
 }
