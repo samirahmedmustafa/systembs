@@ -49,16 +49,46 @@ public class CitizensService {
 	}
 	
 	public Citizens update(Long id, Citizens item) {
-		ModelMapper mapper = new ModelMapper();
-		mapper.getConfiguration().setSkipNullEnabled(true);
+		logger.warn("citizen: {}", item);
 		Citizens old = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
-		mapper.map(item, old);
+		old = updateCitizen(old, item);
+//		logger.warn("citizen: {}", item);
+//		ModelMapper mapper = new ModelMapper();
+//		mapper.getConfiguration().setSkipNullEnabled(true);
+//		mapper.map(item, old);
+//		return itemRepo.save(old);
 		return itemRepo.save(old);
 	}
 	
+	private Citizens updateCitizen(Citizens old, Citizens item) {
+
+		old.setBuildAddressDetails(item.getBuildAddressDetails());
+		old.setDateOfBirth(item.getDateOfBirth());
+		old.setName(item.getName());
+		old.setPhoneNo(item.getPhoneNo());
+		old.setDisabilities(item.getDisabilities());
+		old.setMedicines(item.getMedicines());
+		old.setStatus(item.getStatus());
+		old.setQualification(item.getQualification());
+		old.setProfessions(item.getProfessions());
+		old.setSupports(item.getSupports());
+		old.setGases(item.getGases());
+		old.setWives(item.getWives());
+		old.setNationality(item.getNationality());
+		old.setNationalNo(item.getNationalNo());
+		old.setDiseases(item.getDiseases());
+		old.setSkills(item.getSkills());
+		old.setGender(item.getGender());
+		old.setIsDeceased(item.getIsDeceased());
+		old.setIsGainingSupport(item.getIsGainingSupport());
+		old.setLocation(item.getLocation());
+		old.setIsSupportEligible(item.getIsSupportEligible());
+		
+		return old;
+	}
+
 	public Citizens getById(Long id) {
 		Citizens citizen = itemRepo.findById(id).orElseThrow(() -> new NotFoundException(id + " not found"));
-		logger.warn("citizen: {}", citizen.getWives());
 		return citizen;
 	}
 

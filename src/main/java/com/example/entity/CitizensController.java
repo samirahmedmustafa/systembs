@@ -35,10 +35,10 @@ public class CitizensController {
 	public ResponseEntity<Citizens> getById(@PathVariable Long id) {
 		
 		Citizens citizen = citizensService.getById(id);
-		logger.warn("citizen.getWives():{}", citizen.getWives());
-		logger.warn("citizen.getName():{}", citizen.getName());
-		logger.warn("citizen.getMedicines():{}", citizen.getMedicines());
-		logger.warn("citizen.getSupports():{}", citizen.getSupports());
+//		citizen.getWives().forEach((data) -> System.out.println("getWives: " + data));
+//		logger.warn("citizen.getName():{}", citizen.getName());
+//		logger.warn("citizen.getMedicines():{}", citizen.getMedicines());
+//		logger.warn("citizen.getSupports():{}", citizen.getSupports());
 		return new ResponseEntity<Citizens>(citizen, HttpStatusCode.valueOf(200));
 	}
 	

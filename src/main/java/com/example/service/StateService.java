@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StateService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(State.class);
+	private static final Logger logger = LoggerFactory.getLogger(StateService.class);
 
 
 	private final StateRepo itemRepo;
@@ -76,11 +76,7 @@ public class StateService {
 	public Boolean validateNameExists(String name) {
 		
 		State state = itemRepo.findByName(name);
-		
-		System.out.println("name " + state + " exists");
-		
-		logger.error("name %s exists", state);
-		
+				
 		if(state == null) 
 			return false;
 
@@ -90,11 +86,7 @@ public class StateService {
 	public Boolean validateNameNotExists(String name) {
 		
 		State state = itemRepo.findByName(name);
-		
-		System.out.println("name " + state + " not exists");
-		
-		logger.error("name not %s exists", state);
-		
+				
 		if(state == null) 
 			return true;
 
