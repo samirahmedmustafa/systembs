@@ -10,7 +10,7 @@ spring:
   datasource:
     username: scott
     password: scott
-    url: jdbc:postgresql://localhost:5432/example
+    url: jdbc:postgresql://postgres:5432/example
   jpa:
     show-sql: true
     generate-ddl: true
